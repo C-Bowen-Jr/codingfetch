@@ -8,12 +8,12 @@ pub fn main(matches: ArgMatches) {
     else {
         let mut Languages = HashMap::new();
         
-        let python27 = std::process::Command::new("python")
+        let python = std::process::Command::new("python")
             .arg("-V")
             .output();
         match python {
             Ok(python_version) => {
-                let python_version_string = std::str::from_utf8(&python_version).expect("");
+                let python_version_string = std::str::from_utf8(&python_version.stdout).expect("");
                 Languages.entry("Python".to_string()).or_insert(python_version_string.to_string());
             },
             Err(_) => (),
@@ -24,7 +24,7 @@ pub fn main(matches: ArgMatches) {
             .output();
         match python3 {
             Ok(python3_version) => {
-                let python3_version_string = std::str::from_utf8(&python3_version).expect("");
+                let python3_version_string = std::str::from_utf8(&python3_version.stdout).expect("");
                 Languages.entry("Python 3".to_string()).or_insert(python3_version_string.to_string());
             },
             Err(_) => (),
@@ -44,5 +44,29 @@ pub fn main(matches: ArgMatches) {
         for (lang_name, lang_version) in &Languages {
             println!("{lang_name}: [{lang_version}]");
         };
+        let rust_logo = "
+        :  -#:.%%.:#-  :            
+        - .@@*@@@@%%@@@@*@@. -         
+     . -@@@@@@@%%%..@%%@@@@@@@- .      
+    .@@@@@@*-.   -%#-   .-*@@@@@@.     
+  =**@@@%-                  -%@@@**=   
+  :@@@@@@@@@@@@@@@@@@@@@%#+.  =@@@@:   
+:@@@@@@@@@@@@@@@@@@@@@@@@@@@=  +@@@@@: 
+-*@#.-@+:@@@@@@#-----=%@@@@@@ -@::%@*- 
+:#@@@##*: %@@@@@#-----=%@@@@@= -##*@@@#:
+-*@@@=    %@@@@@@@@@@@@@@@@*      =@@@*-
+-*@@@=    %@@@@@%****%@@@@@@#    +#@@@*-
+:#@@@#    %@@@@@*     -@@@@@@=  =@@@@@#:
+-*@@@@@@@@@@@@@@@@@=  %@@@@@@@@@@@@@*- 
+:@@@@@@@@@@@@@@@@@@=  :@@@@@@@@@@@@@@: 
+  :@@@@%--==:::::::.    ::==--%@@@@:   
+  =**@@@@*+@-            =@+#@@@@**=   
+    .@@@@=-%%:.        .:@#:=@@@@.     
+     . -@@@@@@@@%####%@@@@@@@@- .      
+        - .@@*@@@@@@@@@@*@@. -         
+           :  -#:.%%.:#-  :            
+
+        ";
+        println!("{}",&rust_logo);
     }
 }
