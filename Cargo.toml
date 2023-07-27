@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 clap = "2.33.3"
 tabled = "0.13.0"
+regex = "1.9.1"

@@ -1,6 +1,7 @@
 use clap::ArgMatches;
 use tabled::{builder::Builder, settings::Style};
 use std::collections::HashMap;
+use regex::Regex;
 
 use std::io::Read;
 
@@ -25,7 +26,8 @@ pub fn main(matches: ArgMatches) {
         println!("Version: TODO");
     }
     else {
-        let mut Languages = HashMap::new();
+        let mut languages = HashMap::new();
+        let reg_find_version = Regex::new(r"(\d+\.\d+.\d+)").unwrap();
         
         let python = std::process::Command::new("python")
             .arg("-V")
@@ -33,7 +35,7 @@ pub fn main(matches: ArgMatches) {
         match python {
             Ok(python_version) => {
                 let python_version_string = std::str::from_utf8(&python_version.stdout).expect("");
-                Languages.entry("Python".to_string()).or_insert(python_version_string.to_string());
+                languages.entry("Python".to_string()).or_insert(python_version_string.to_string());
             },
             Err(_) => (),
         };
@@ -44,7 +46,7 @@ pub fn main(matches: ArgMatches) {
         match python3 {
             Ok(python3_version) => {
                 let python3_version_string = std::str::from_utf8(&python3_version.stdout).expect("");
-                Languages.entry("Python 3".to_string()).or_insert(python3_version_string.to_string());
+                languages.entry("Python 3".to_string()).or_insert(python3_version_string.to_string());
             },
             Err(_) => (),
         };
@@ -55,15 +57,15 @@ pub fn main(matches: ArgMatches) {
         match rust {
             Ok(rust_version) => {
                 let rust_version_string = std::str::from_utf8(&rust_version.stdout).expect("");
-                Languages.entry("Rust".to_string()).or_insert(rust_version_string.to_string());
+                languages.entry("Rust".to_string()).or_insert(rust_version_string.to_string());
             },
             Err(_) => (),
         };
         
         let mut lang_builder = Builder::new();
-        for (lang_name, lang_version) in &Languages {
-            //println!("{lang_name}: [{lang_version}]");
-            lang_builder.push_record([lang_name, lang_version]);
+        for (lang_name, lang_version) in &languages {
+            let Some(caps) = reg_find_version.captures(&lang_version) else { return };
+            lang_builder.push_record([lang_name, &caps[1].to_string()]);
         };
         let lang_table = lang_builder.build()
             .with(Style::ascii_rounded())
