@@ -1,5 +1,24 @@
 use clap::ArgMatches;
+use tabled::{builder::Builder, settings::Style};
 use std::collections::HashMap;
+
+use std::io::Read;
+
+fn read_file_buffer(filepath: &str) -> Result<(), Box<dyn std::error::Error>> {
+    const BUFFER_LEN: usize = 1024;
+    let mut buffer = [0u8; BUFFER_LEN];
+    let mut file = std::fs::File::open(filepath).unwrap();
+
+    loop {
+        let read_count = file.read(&mut buffer).unwrap();
+        println!("{}", std::str::from_utf8(&buffer[..read_count]).unwrap());
+
+        if read_count != BUFFER_LEN {
+            break;
+        }
+    }
+    Ok(())
+}
 
 pub fn main(matches: ArgMatches) {
     if matches.is_present("test") {
@@ -41,32 +60,16 @@ pub fn main(matches: ArgMatches) {
             Err(_) => (),
         };
         
+        let mut lang_builder = Builder::new();
         for (lang_name, lang_version) in &Languages {
-            println!("{lang_name}: [{lang_version}]");
+            //println!("{lang_name}: [{lang_version}]");
+            lang_builder.push_record([lang_name, lang_version]);
         };
-        let rust_logo = "
-        :  -#:.%%.:#-  :            
-        - .@@*@@@@%%@@@@*@@. -         
-     . -@@@@@@@%%%..@%%@@@@@@@- .      
-    .@@@@@@*-.   -%#-   .-*@@@@@@.     
-  =**@@@%-                  -%@@@**=   
-  :@@@@@@@@@@@@@@@@@@@@@%#+.  =@@@@:   
-:@@@@@@@@@@@@@@@@@@@@@@@@@@@=  +@@@@@: 
--*@#.-@+:@@@@@@#-----=%@@@@@@ -@::%@*- 
-:#@@@##*: %@@@@@#-----=%@@@@@= -##*@@@#:
--*@@@=    %@@@@@@@@@@@@@@@@*      =@@@*-
--*@@@=    %@@@@@%****%@@@@@@#    +#@@@*-
-:#@@@#    %@@@@@*     -@@@@@@=  =@@@@@#:
--*@@@@@@@@@@@@@@@@@=  %@@@@@@@@@@@@@*- 
-:@@@@@@@@@@@@@@@@@@=  :@@@@@@@@@@@@@@: 
-  :@@@@%--==:::::::.    ::==--%@@@@:   
-  =**@@@@*+@-            =@+#@@@@**=   
-    .@@@@=-%%:.        .:@#:=@@@@.     
-     . -@@@@@@@@%####%@@@@@@@@- .      
-        - .@@*@@@@@@@@@@*@@. -         
-           :  -#:.%%.:#-  :            
-
-        ";
-        println!("{}",&rust_logo);
+        let lang_table = lang_builder.build()
+            .with(Style::ascii_rounded())
+            .to_string();
+        println!("{}", lang_table);
+        
+        //read_file_buffer("./ascii_art.bin");
     }
 }

@@ -1,6 +1,3 @@
-#[cfg(feature = "pretty_output")]
-#[macro_use] extern crate prettytable;
-
 use clap::Arg;
 mod output;
 

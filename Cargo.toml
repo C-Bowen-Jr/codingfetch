@@ -1,13 +1,10 @@
 [package]
 name = "codingfetch"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[features]
-pretty_output = ["prettytable-rs"]
-
 [dependencies]
 clap = "2.33.3"
-prettytable-rs = { version = "0.8.0", optional = true}
+tabled = "0.13.0"
