@@ -132,6 +132,21 @@ pub fn main(matches: ArgMatches) {
             Err(_) => (),
         };
 
+        let java = std::process::Command::new("javac")
+            .arg("--version")
+            .output();
+        match java {
+            Ok(java_version) => {
+                let java_version_string = std::str::from_utf8(&java_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&java_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Java".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
         let temp_logo = [
             Logo::new("    **    ".to_string()),
             Logo::new("   *--*   ".to_string()),
