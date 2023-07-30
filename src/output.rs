@@ -102,23 +102,20 @@ pub fn main(matches: ArgMatches) {
             Err(_) => (),
         };
         
-        /*let mut lang_builder = Builder::new();
-        lang_builder.set_header(["Language", "Version"]);
-        for (lang_name, lang_version) in &languages {
-            let Some(caps) = reg_find_version.captures(&lang_version) else { return };
-            lang_builder.push_record([lang_name, &caps[1].to_string()]);
+        let gcc = std::process::Command::new("gcc")
+            .arg("--version")
+            .output();
+        match ccpp {
+            Ok(ccpp_version) => {
+                let ccpp_version_string = std::str::from_utf8(&ccpp_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&ccpp_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("C/C++".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
         };
-        let lang_table = lang_builder.build()
-            .with(Style::sharp())
-            .to_string();
-
-        let mut temp_versions = vec![
-            VersionChart::new("Python".to_string(),"3.11.0".to_string()),
-            VersionChart::new("Javascript".to_string(),"0.1.0".to_string()),
-            VersionChart::new("Ada".to_string(),"99.0.9".to_string()),
-        ];
-
-        temp_versions.push(VersionChart::new("C++".to_string(),"2.21.1".to_string()));*/
 
         let temp_logo = [
             Logo::new("    **    ".to_string()),
