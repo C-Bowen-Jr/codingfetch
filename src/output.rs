@@ -63,8 +63,11 @@ pub fn main(matches: ArgMatches) {
         match python {
             Ok(python_version) => {
                 let python_version_string = std::str::from_utf8(&python_version.stdout).expect("");
-                let Some(captured_version) = reg_find_version.captures(&python_version_string) else { return };
-                language_chart.push(VersionChart::new("Python".to_string(),captured_version[1].to_string()));
+                let captured_version = reg_find_version.captures(&python_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Python".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
             },
             Err(_) => (),
         };
@@ -75,8 +78,11 @@ pub fn main(matches: ArgMatches) {
         match python3 {
             Ok(python3_version) => {
                 let python3_version_string = std::str::from_utf8(&python3_version.stdout).expect("");
-                let Some(captured_version) = reg_find_version.captures(&python3_version_string) else { return };
-                language_chart.push(VersionChart::new("Python3".to_string(),captured_version[1].to_string()));
+                let captured_version = reg_find_version.captures(&python3_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Python3".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
             },
             Err(_) => (),
         };
@@ -87,8 +93,11 @@ pub fn main(matches: ArgMatches) {
         match rust {
             Ok(rust_version) => {
                 let rust_version_string = std::str::from_utf8(&rust_version.stdout).expect("");
-                let Some(captured_version) = reg_find_version.captures(&rust_version_string) else { return };
-                language_chart.push(VersionChart::new("Rust".to_string(),captured_version[1].to_string()));
+                let captured_version = reg_find_version.captures(&rust_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Rust".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
             },
             Err(_) => (),
         };
