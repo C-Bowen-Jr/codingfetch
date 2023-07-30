@@ -162,12 +162,28 @@ pub fn main(matches: ArgMatches) {
             Err(_) => (),
         };
 
+        // 40 char width
         let temp_logo = [
-            Logo::new("    **    ".to_string()),
-            Logo::new("   *--*   ".to_string()),
-            Logo::new("  *----*  ".to_string()),
-            Logo::new("  *----*  ".to_string()),
-            Logo::new("    ||    ".to_string()),
+            Logo::new("           ,;*?%S######S%?*;,           ".to_string()),
+            Logo::new("        :*%##@@##########@@##%*:        ".to_string()),
+            Logo::new("     ,+%#@@##################@@#%+,     ".to_string()),
+            Logo::new("    ;S@@####@@#####@@#####@@####@@S;    ".to_string()),
+            Logo::new("  ,?@@###+:;+?S##SSSSSSS##%+;:;###@@?,  ".to_string()),
+            Logo::new(" ,%@####S,    ,:,,    ,,:,     S####@%, ".to_string()),
+            Logo::new(" %@######:                    ,######@? ".to_string()),
+            Logo::new("+@######+,                     ;######@+".to_string()),
+            Logo::new("S#####@*                        +@#####S".to_string()),
+            Logo::new("######@;                        :#######".to_string()),
+            Logo::new("######@+                        ;@######".to_string()),
+            Logo::new("S######S,                       %@#####S".to_string()),
+            Logo::new("+@#####@%:                    ,?@#####@+".to_string()),
+            Logo::new(" %@##SS#@#?;,              ,;*S@#####@? ".to_string()),
+            Logo::new(" ,%@#%+:+#@@#S%*,      ,*%S##@######@%, ".to_string()),
+            Logo::new("  ,?#@@%,,?S##S;        :#@#######@@?,  ".to_string()),
+            Logo::new("    ;S@@%:  ,,          ,S######@@S;    ".to_string()),
+            Logo::new("     ,+%#@S%%%%,        ,S###@@#%+,     ".to_string()),
+            Logo::new("        :*%#@@#,        ,#@##%*:        ".to_string()),
+            Logo::new("           ,;*+,         +*;,           ".to_string()),
         ];
 
         let right_side = Table::new(&language_chart).with(Style::modern()).to_string();
