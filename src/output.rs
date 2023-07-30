@@ -102,7 +102,7 @@ pub fn main(matches: ArgMatches) {
             Err(_) => (),
         };
         
-        let gcc = std::process::Command::new("gcc")
+        let ccpp = std::process::Command::new("gcc")
             .arg("--version")
             .output();
         match ccpp {
