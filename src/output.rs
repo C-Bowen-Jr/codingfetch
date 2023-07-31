@@ -1,5 +1,5 @@
 use clap::ArgMatches;
-use tabled::{row, Table, Tabled, builder::Builder, settings::Style};
+use tabled::{row, Table, Tabled, builder::Builder, settings::{Settings,Style,Disable,object::Rows}};
 use std::collections::HashMap;
 use regex::Regex;
 
@@ -56,6 +56,8 @@ pub fn main(matches: ArgMatches) {
     else {
         let mut language_chart:Vec<VersionChart> = vec![];
         let reg_find_version = Regex::new(r"(\d+\.\d+.\d+)").unwrap();
+        let table_config = Settings::default()
+            .with(Style::blank());
         
         let python = std::process::Command::new("python")
             .arg("-V")
@@ -186,8 +188,14 @@ pub fn main(matches: ArgMatches) {
             Logo::new("           ,;*+,         +*;,           ".to_string()),
         ];
 
-        let right_side = Table::new(&language_chart).with(Style::modern()).to_string();
-        let left_side = Table::new(&temp_logo).with(Style::blank()).to_string();
+        let right_side = Table::new(&language_chart)
+            .with(Disable::row(Rows::first()))
+            .with(Style::modern())
+            .to_string();
+        let left_side = Table::new(&temp_logo)
+            .with(Disable::row(Rows::first()))
+            .with(Style::blank())
+            .to_string();
 
         let combined = row![left_side.to_string(),right_side.to_string()];
         println!("{}", &combined);
