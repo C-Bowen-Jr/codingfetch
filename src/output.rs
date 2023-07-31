@@ -197,8 +197,10 @@ pub fn main(matches: ArgMatches) {
             .with(Style::blank())
             .to_string();
 
-        let combined = row![left_side.to_string(),right_side.to_string()];
-        println!("{}", &combined);
+        let combined = row![left_side.to_string(),right_side.to_string()]
+            .with(Style::blank())
+            .to_string();
+        println!("\n\n{}\n\n", &combined);
         
         //read_file_buffer("./ascii_art.bin");
     }
