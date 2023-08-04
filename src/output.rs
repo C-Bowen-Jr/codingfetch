@@ -1,6 +1,6 @@
 use clap::ArgMatches;
-use tabled::{row, Table, Tabled, builder::Builder, settings::{Settings,Style,Disable,object::Rows}};
-use std::collections::HashMap;
+use tabled::{row, Table, Tabled, settings::{Settings,Style,Disable,object::Rows, object::Columns, themes::Colorization, Color}};
+//use std::collections::HashMap;
 use regex::Regex;
 
 use std::io::Read;
@@ -59,6 +59,8 @@ pub fn main(matches: ArgMatches) {
         let table_config = Settings::default()
             .with(Style::blank());
         
+        language_chart.push(VersionChart::new("github.com".to_string(),"/username".to_string()));
+
         let python = std::process::Command::new("python")
             .arg("-V")
             .output();
@@ -190,7 +192,9 @@ pub fn main(matches: ArgMatches) {
 
         let right_side = Table::new(&language_chart)
             .with(Disable::row(Rows::first()))
-            .with(Style::modern())
+            .with(Style::markdown())
+            // TODO, this adds weird 
+            //.with(Colorization::exact([Color::FG_GREEN], Columns::first()))
             .to_string();
         let left_side = Table::new(&temp_logo)
             .with(Disable::row(Rows::first()))
