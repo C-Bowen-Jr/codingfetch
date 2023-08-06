@@ -193,8 +193,9 @@ pub fn main() {
         let right_side = Table::new(&language_chart)
             .with(Disable::row(Rows::first()))
             .with(Style::markdown())
-            // TODO, this adds weird 
-            //.with(Colorization::exact([Color::FG_GREEN], Columns::first()))
+            // TODO, this adds weird line break effect
+            .with(Colorization::exact([Color::FG_GREEN], Columns::first()))
+            //.with(tabled::settings::Modify::new(Columns::first()).with(Color::FG_GREEN))
             .to_string();
         let left_side = Table::new(&temp_logo)
             .with(Disable::row(Rows::first()))
