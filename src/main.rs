@@ -14,8 +14,15 @@ fn main() {
     let args = Args::try_parse();
 
     match args {
-        Ok(found) => println!("Found {}", found.gh_user),
-        Err(_) => (),   
+        Ok(found) => {
+            let res = output::ConfigSettings::set_config(output::ConfigSettings::new(found.gh_user));
+            match res {
+                Ok(_) => println!("Github username set"),
+                Err(_) => println!("Config related failure"),
+            }
+        },
+        Err(_) => (output::main()),   
     }
-    output::main();
+
+    
 }

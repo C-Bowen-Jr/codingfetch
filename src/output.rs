@@ -1,7 +1,9 @@
-use clap::ArgMatches;
+//use clap::ArgMatches;
 use tabled::{row, Table, Tabled, settings::{Settings,Style,Disable,object::Rows, object::Columns, themes::Colorization, Color}};
 //use std::collections::HashMap;
 use regex::Regex;
+use confy;
+use serde::{Serialize,Deserialize};
 
 use std::io::Read;
 
@@ -33,6 +35,37 @@ impl Logo {
     }
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ConfigSettings {
+    gh_user: String,
+}
+
+impl ::std::default::Default for ConfigSettings {
+    fn default() -> Self {
+        Self {
+            gh_user: "".to_string(),
+        }
+    }
+}
+
+impl ConfigSettings {
+    pub fn new(username: String) -> Self {
+        Self {
+            gh_user: username,
+        }
+    }
+
+    pub fn get_config() -> Result<ConfigSettings, confy::ConfyError> {
+        let cfg: ConfigSettings = confy::load("codingfetch", None)?;
+        Ok(cfg)
+    }
+
+    pub fn set_config(new_config: ConfigSettings) -> Result<(), confy::ConfyError> {
+        confy::store("codingfetch", None, new_config)?;
+        Ok(())
+    }
+}
+
 fn read_file_buffer(filepath: &str) -> Result<(), Box<dyn std::error::Error>> {
     const BUFFER_LEN: usize = 1024;
     let mut buffer = [0u8; BUFFER_LEN];
@@ -59,7 +92,11 @@ pub fn main() {
         let table_config = Settings::default()
             .with(Style::blank());
         
-        language_chart.push(VersionChart::new("github.com".to_string(),"/username".to_string()));
+        if let Ok(config_settings) = ConfigSettings::get_config() {
+            language_chart.push(VersionChart::new("github.com".to_string(),config_settings.gh_user));
+        } else {
+            language_chart.push(VersionChart::new("github.com".to_string(),"/username".to_string()));
+        }
 
         let python = std::process::Command::new("python")
             .arg("-V")
