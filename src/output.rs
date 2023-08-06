@@ -49,9 +49,9 @@ fn read_file_buffer(filepath: &str) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-pub fn main(matches: ArgMatches) {
-    if matches.is_present("test") {
-        println!("Version: TODO");
+pub fn main() {
+    if false {
+        println!(env!("CARGO_PKG_VERSION"));
     }
     else {
         let mut language_chart:Vec<VersionChart> = vec![];

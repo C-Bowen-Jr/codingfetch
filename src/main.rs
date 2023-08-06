@@ -1,15 +1,21 @@
-use clap::Arg;
+use clap::{Parser};
 mod output;
 
-fn main() {
-    let matches = clap::App::new("codingfetch")
-        .version(env!("CARGO_PKG_VERSION"))
-        .author("Laylong <https://github.com/C-Bowen-Jr>")
-        .about("\nA neofetch like tool for programmers.")
-        .arg(Arg::with_name("test"))
-            .help_short("t")
-            .help("Test command")
-        .get_matches();
+/// Neofetch like for programers, check and show off compilers
+#[derive(Parser, Debug)]
+#[command(version, about)]
+struct Args {
+    /// Set github username
+    #[arg(long)]
+    gh_user: String,
+}
 
-    output::main(matches);
+fn main() {
+    let args = Args::try_parse();
+
+    match args {
+        Ok(found) => println!("Found {}", found.gh_user),
+        Err(_) => (),   
+    }
+    output::main();
 }
