@@ -3,7 +3,7 @@
 Codingfetch is a neofetch like Rust program. It's inspired as an alternative to [langfetch](https://github.com/aderpas/langfetch). This will display what languages you have install and their versions. In progress is what default language logo get's populated, however a config setting will allow you to change to a prefered.
 
 ## Preview
-![screenshot of version 0.2.5](codingfetch_v_0-2-5.png "Example output of V.0.2.5)
+![screenshot of version 0.2.5](./codingfetch_v_0-2-5.png "Example output of V.0.2.5)
 
 ## Install
 
