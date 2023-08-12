@@ -29,3 +29,17 @@ cargo run -- --gh-user You
 ## Configuration File
 
 The configuration file is created by the crate confy. The current save path is determined by confy itself, and will be dependent on your OS.
+
+## Currently Checks
+
+- C/C++
+ - gcc
+- Git
+- GoLang
+- Java
+- Javascript
+ - NodeJS
+- Python
+ - python
+ - python3
+- Rust

@@ -173,6 +173,21 @@ pub fn main() {
             Err(_) => (),
         };
 
+        let golang = std::process::Command::new("go")
+            .arg("version")
+            .output();
+        match golang {
+            Ok(go_version) => {
+                let go_version_string = std::str::from_utf8(&go_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&go_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Go".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
         let java = std::process::Command::new("javac")
             .arg("--version")
             .output();
