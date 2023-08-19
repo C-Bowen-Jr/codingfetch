@@ -39,7 +39,10 @@ The configuration file is created by the crate confy. The current save path is d
 - Java
 - Javascript
  - NodeJS
+- Lua
+- Perl
 - Python
  - python
  - python3
+- Ruby
 - Rust

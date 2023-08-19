@@ -142,6 +142,21 @@ pub fn main() {
             },
             Err(_) => (),
         };
+
+        let ruby = std::process::Command::new("ruby")
+            .arg("-v")
+            .output();
+        match ruby {
+            Ok(ruby_version) => {
+                let ruby_version_string = std::str::from_utf8(&ruby_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&ruby_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Ruby".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
         
         let ccpp = std::process::Command::new("gcc")
             .arg("--version")
@@ -212,6 +227,36 @@ pub fn main() {
                 let captured_version = reg_find_version.captures(&nodejs_version_string);
                 match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("NodeJS".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let lua = std::process::Command::new("lua")
+            .arg("-v")
+            .output();
+        match lua {
+            Ok(lua_version) => {
+                let lua_version_string = std::str::from_utf8(&lua_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&lua_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Lua".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let perl = std::process::Command::new("perl")
+            .arg("-v")
+            .output();
+        match perl {
+            Ok(perl_version) => {
+                let perl_version_string = std::str::from_utf8(&perl_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&perl_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Perl".to_string(),found_version[1].to_string())),
                     None => (),
                 }
             },
