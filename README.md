@@ -7,7 +7,24 @@ Codingfetch is a neofetch like Rust program. It's inspired as an alternative to 
 
 ## Install
 
- - TODO
+ First build from source.
+ ```
+ cargo build --release
+ ```
+
+ Then run the make file.
+ ```
+ make install
+ ```
+
+ Make also has an uninstall if you need it.
+ ```
+ make uninstall
+ ```
+
+ ### Note:
+Current makefile only works for Linux. Windows and and Mac are planned, 
+but just not implemented yet.
 
 ## Usage
 
