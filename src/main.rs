@@ -21,7 +21,7 @@ fn main() {
                 Err(_) => println!("Config related failure"),
             }
         },
-        Err(_) => (output::main()),   
+        Err(_) => output::main(),   
     }
 
     
