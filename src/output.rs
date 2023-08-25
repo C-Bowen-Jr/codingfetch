@@ -289,14 +289,13 @@ pub fn main() {
 
         let right_side = Table::new(&language_chart)
             .with(Disable::row(Rows::first()))
-            .with(Style::markdown())
-            // TODO, this adds weird line break effect
-            .with(Colorization::exact([Color::FG_GREEN], Columns::first()))
-            //.with(tabled::settings::Modify::new(Columns::first()).with(Color::FG_GREEN))
+            .with(Style::psql())
+            .with(Colorization::exact([Color::BOLD | Color::FG_BRIGHT_GREEN], Columns::first()))
             .to_string();
         let left_side = Table::new(&temp_logo)
             .with(Disable::row(Rows::first()))
             .with(Style::blank())
+            .with(Colorization::rows([Color::FG_BRIGHT_BLUE]))
             .to_string();
 
         let combined = row![left_side.to_string(),right_side.to_string()]
