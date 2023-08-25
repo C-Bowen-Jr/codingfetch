@@ -78,6 +78,66 @@ pub fn main() {
             language_chart.push(VersionChart::new("github.com".to_string(),"/username".to_string()));
         }
 
+        let ada = std::process::Command::new("ada")
+            .arg("--version")
+            .output();
+        match ada {
+            Ok(ada_version) => {
+                let ada_version_string = std::str::from_utf8(&ada_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&ada_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Ada".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let fortran = std::process::Command::new("gfortran")
+            .arg("--version")
+            .output();
+        match fortran {
+            Ok(fortran_version) => {
+                let fortran_version_string = std::str::from_utf8(&fortran_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&fortran_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Fortran".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let haskell = std::process::Command::new("ghc")
+            .arg("--version")
+            .output();
+        match haskell {
+            Ok(haskell_version) => {
+                let haskell_version_string = std::str::from_utf8(&haskell_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&haskell_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Haskell".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let kotlin = std::process::Command::new("kotlin")
+            .arg("--version")
+            .output();
+        match kotlin {
+            Ok(kotlin_version) => {
+                let kotlin_version_string = std::str::from_utf8(&kotlin_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&kotlin_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Kotlin".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
         let python = std::process::Command::new("python")
             .arg("-V")
             .output();
@@ -132,6 +192,21 @@ pub fn main() {
                 let captured_version = reg_find_version.captures(&ruby_version_string);
                 match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("Ruby".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let swift = std::process::Command::new("switf")
+            .arg("--version")
+            .output();
+        match swift {
+            Ok(swift_version) => {
+                let swift_version_string = std::str::from_utf8(&swift_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&swift_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Swift".to_string(),found_version[1].to_string())),
                     None => (),
                 }
             },

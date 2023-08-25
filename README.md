@@ -49,13 +49,17 @@ The configuration file is created by the crate confy. The current save path is d
 
 ## Currently Checks
 
+- Ada
 - C/C++
  - gcc
+- Fortran
 - Git
 - GoLang
+- Haskell
 - Java
 - Javascript
  - NodeJS
+- Kotlin
 - Lua
 - Perl
 - Python
@@ -63,3 +67,4 @@ The configuration file is created by the crate confy. The current save path is d
  - python3
 - Ruby
 - Rust
+- Swift
