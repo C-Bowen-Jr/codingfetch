@@ -49,6 +49,16 @@ The configuration file is created by the crate confy. The current save path is d
 
 ## Currently Checks
 
+The checked list is not exhaustive, so if you don't see an IDE, language, or compiler/interpreter, then this is a perfect contribution opertunity.
+
+### IDEs
+- Codium
+- Kate
+- Vim
+- VSCode
+- Xcode
+
+### Languages
 - Ada
 - C/C++
  - gcc

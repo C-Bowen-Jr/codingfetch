@@ -72,12 +72,85 @@ pub fn main() {
         let _table_config = Settings::default()
             .with(Style::blank());
         
+        // GITHUB
         if let Ok(config_settings) = ConfigSettings::get_config() {
             language_chart.push(VersionChart::new("github.com".to_string(),config_settings.gh_user));
         } else {
             language_chart.push(VersionChart::new("github.com".to_string(),"/username".to_string()));
         }
 
+        // IDE
+        let vscode = std::process::Command::new("code")
+            .arg("--version")
+            .output();
+        match vscode {
+            Ok(vscode_version) => {
+                let vscode_version_string = std::str::from_utf8(&vscode_version.stdout).expect("");
+                let captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("VS Code".to_string(), found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let codium = std::process::Command::new("codium")
+            .arg("--version")
+            .output();
+        match codium {
+            Ok(codium_version) => {
+                let codium_version_string = std::str::from_utf8(&codium_version.stdout).expect("");
+                let captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Codium".to_string(), found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let kote = std::process::Command::new("kate")
+            .arg("--version")
+            .output();
+        match kate {
+            Ok(kate_version) => {
+                let kate_version_string = std::str::from_utf8(&kate_version.stdout).expect("");
+                let captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Kate".to_string(), found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let vim = std::process::Command::new("vim")
+            .arg("--version")
+            .output();
+        match vim {
+            Ok(vim_version) => {
+                let vim_version_string = std::str::from_utf8(&vim_version.stdout).expect("");
+                let captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Vim".to_string(), found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        let xcode = std::process::Command::new("xcodebuild")
+            .arg("-version")
+            .output();
+        match xcode {
+            Ok(xcode_version) => {
+                let xcode_version_string = std::str::from_utf8(&xcode_version.stdout).expect("");
+                let captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Xcode".to_string(), found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
+        // PROGRAMMING LANGUAGES
         let ada = std::process::Command::new("ada")
             .arg("--version")
             .output();
