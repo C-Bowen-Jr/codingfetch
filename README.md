@@ -43,6 +43,8 @@ If used through cargo run, keep in mind that to pass arguments to the project in
 cargo run -- --gh-user You
 ```
 
+TODO: add alternative setting for gitlab accounts
+
 ## Configuration File
 
 The configuration file is created by the crate confy. The current save path is determined by confy itself, and will be dependent on your OS.
