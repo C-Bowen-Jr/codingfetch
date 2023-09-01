@@ -86,7 +86,8 @@ pub fn main() {
         match vscode {
             Ok(vscode_version) => {
                 let vscode_version_string = std::str::from_utf8(&vscode_version.stdout).expect("");
-                let captured_version {
+                let captured_version = reg_find_version.captures(&vscode_version_string);
+                match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("VS Code".to_string(), found_version[1].to_string())),
                     None => (),
                 }
@@ -100,7 +101,8 @@ pub fn main() {
         match codium {
             Ok(codium_version) => {
                 let codium_version_string = std::str::from_utf8(&codium_version.stdout).expect("");
-                let captured_version {
+                let captured_version = reg_find_version.captures(&codium_version_string);
+                match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("Codium".to_string(), found_version[1].to_string())),
                     None => (),
                 }
@@ -108,13 +110,14 @@ pub fn main() {
             Err(_) => (),
         };
 
-        let kote = std::process::Command::new("kate")
+        let kate = std::process::Command::new("kate")
             .arg("--version")
             .output();
         match kate {
             Ok(kate_version) => {
                 let kate_version_string = std::str::from_utf8(&kate_version.stdout).expect("");
-                let captured_version {
+                let captured_version = reg_find_version.captures(&kate_version_string);
+                match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("Kate".to_string(), found_version[1].to_string())),
                     None => (),
                 }
@@ -128,7 +131,8 @@ pub fn main() {
         match vim {
             Ok(vim_version) => {
                 let vim_version_string = std::str::from_utf8(&vim_version.stdout).expect("");
-                let captured_version {
+                let captured_version = reg_find_version.captures(&vim_version_string);
+                match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("Vim".to_string(), found_version[1].to_string())),
                     None => (),
                 }
@@ -142,7 +146,8 @@ pub fn main() {
         match xcode {
             Ok(xcode_version) => {
                 let xcode_version_string = std::str::from_utf8(&xcode_version.stdout).expect("");
-                let captured_version {
+                let captured_version = reg_find_version.captures(&xcode_version_string);
+                match captured_version {
                     Some(found_version) => language_chart.push(VersionChart::new("Xcode".to_string(), found_version[1].to_string())),
                     None => (),
                 }
