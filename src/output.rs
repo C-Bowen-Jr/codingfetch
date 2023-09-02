@@ -3,6 +3,8 @@ use regex::Regex;
 use confy;
 use serde::{Serialize,Deserialize};
 
+#[path = "logos.rs"] mod logos;
+
 #[derive(Tabled)]
 struct VersionChart {
     language: String,
@@ -397,28 +399,12 @@ pub fn main() {
         };
 
         // 40 char width
-        let temp_logo = [
-            Logo::new("\x1b[94m           ,;*?%S######S%?*;,           ".to_string()),
-            Logo::new("        :*%##@@##########@@##%*:        ".to_string()),
-            Logo::new("     ,+%#@@##################@@#%+,     ".to_string()),
-            Logo::new("    ;S@@####@@#####@@#####@@####@@S;    ".to_string()),
-            Logo::new("  ,?@@###+:;+?S##SSSSSSS##%+;:;###@@?,  ".to_string()),
-            Logo::new(" ,%@####S,    ,:,,    ,,:,     S####@%, ".to_string()),
-            Logo::new(" %@######:                    ,######@? ".to_string()),
-            Logo::new("+@######+,                     ;######@+".to_string()),
-            Logo::new("S#####@*                        +@#####S".to_string()),
-            Logo::new("######@;                        :#######".to_string()),
-            Logo::new("######@+                        ;@######".to_string()),
-            Logo::new("S######S,                       %@#####S".to_string()),
-            Logo::new("+@#####@%:                    ,?@#####@+".to_string()),
-            Logo::new(" %@##SS#@#?;,              ,;*S@#####@? ".to_string()),
-            Logo::new(" ,%@#%+:+#@@#S%*,      ,*%S##@######@%, ".to_string()),
-            Logo::new("  ,?#@@%,,?S##S;        :#@#######@@?,  ".to_string()),
-            Logo::new("    ;S@@%:  ,,          ,S######@@S;    ".to_string()),
-            Logo::new("     ,+%#@S%%%%,        ,S###@@#%+,     ".to_string()),
-            Logo::new("        :*%#@@#,        ,#@##%*:        ".to_string()),
-            Logo::new("           ,;*+,         +*;,           ".to_string()),
-        ];
+        let mut temp_logo: Vec<String> = vec![];
+        let logo_lines = logos::get_logo("anything");
+        for each in &logo_lines {
+            temp_logo.push(each.to_string());
+        }
+        
 
         let right_side = Table::new(&language_chart)
             .with(Disable::row(Rows::first()))
