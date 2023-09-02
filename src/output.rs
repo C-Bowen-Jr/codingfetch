@@ -398,7 +398,7 @@ pub fn main() {
 
         // 40 char width
         let temp_logo = [
-            Logo::new("           ,;*?%S######S%?*;,           ".to_string()),
+            Logo::new("\x1b[94m           ,;*?%S######S%?*;,           ".to_string()),
             Logo::new("        :*%##@@##########@@##%*:        ".to_string()),
             Logo::new("     ,+%#@@##################@@#%+,     ".to_string()),
             Logo::new("    ;S@@####@@#####@@#####@@####@@S;    ".to_string()),
@@ -428,7 +428,6 @@ pub fn main() {
         let left_side = Table::new(&temp_logo)
             .with(Disable::row(Rows::first()))
             .with(Style::blank())
-            .with(Colorization::rows([Color::FG_BRIGHT_BLUE]))
             .to_string();
 
         let combined = row![left_side.to_string(),right_side.to_string()]
