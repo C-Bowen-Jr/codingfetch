@@ -398,6 +398,21 @@ pub fn main() {
             Err(_) => (),
         };
 
+        let zig = std::process::Command::new("zig")
+            .arg("version")
+            .output();
+        match zig {
+            Ok(zig_version) => {
+                let zig_version_string = std::str::from_utf8(&zig_version.stdout).expect("");
+                let captured_version = reg_find_version.captures(&zig_version_string);
+                match captured_version {
+                    Some(found_version) => language_chart.push(VersionChart::new("Zig".to_string(),found_version[1].to_string())),
+                    None => (),
+                }
+            },
+            Err(_) => (),
+        };
+
         // 40 char width
         let mut temp_logo: Vec<String> = vec![];
         let logo_lines = logos::get_logo("anything");

@@ -80,3 +80,4 @@ The checked list is not exhaustive, so if you don't see an IDE, language, or com
 - Ruby
 - Rust
 - Swift
+- Zig
